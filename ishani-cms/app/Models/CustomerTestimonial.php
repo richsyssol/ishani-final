@@ -12,13 +12,23 @@ class CustomerTestimonial extends Model
         'quote',
         'name',
         'location',
+        'rating',
         'order',
         'is_visible'
     ];
 
     protected $casts = [
         'is_visible' => 'boolean',
+         'rating' => 'integer'
     ];
+
+     public static function rules()
+    {
+        return [
+            'rating' => 'required|integer|min:1|max:5',
+            // ... other rules
+        ];
+    }
 
     public function scopeVisible($query)
     {

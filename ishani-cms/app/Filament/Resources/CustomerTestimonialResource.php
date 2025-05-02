@@ -13,12 +13,12 @@ use App\Filament\Resources\CustomerTestimonialResource\Pages;
 class CustomerTestimonialResource extends Resource
 {
     protected static ?string $model = CustomerTestimonial::class;
-    
+
     // Customize these labels
     protected static ?string $modelLabel = 'Customer Testimonial';
     protected static ?string $pluralModelLabel = 'Customer Testimonials';
     protected static ?string $navigationLabel = 'Customer Testimonials';
-    
+
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
     protected static ?string $navigationGroup = 'Content';
 
@@ -37,6 +37,16 @@ class CustomerTestimonialResource extends Resource
                 Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(100),
+                Forms\Components\Select::make('rating') // Added
+                    ->options([
+                        1 => '1',
+                        2 => '2',
+                        3 => '3',
+                        4 => '4',
+                        5 => '5',
+                    ])
+                    ->default(5)
+                    ->required(),
                 Forms\Components\TextInput::make('order')
                     ->numeric()
                     ->default(0),
@@ -55,6 +65,11 @@ class CustomerTestimonialResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location'),
+                 Tables\Columns\TextColumn::make('rating') // Changed from IconColumn to TextColumn
+                ->numeric()
+                ->alignCenter()
+                ->sortable()
+                ->formatStateUsing(fn (int $state): string => "$state/5"),
                 Tables\Columns\TextColumn::make('order')
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_visible')

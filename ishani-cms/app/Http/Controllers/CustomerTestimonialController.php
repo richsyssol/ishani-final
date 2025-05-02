@@ -15,7 +15,7 @@ class CustomerTestimonialController extends Controller
     {
         $testimonials = CustomerTestimonial::visible()
             ->ordered()
-            ->get(['quote', 'name', 'location']);
+            ->get(['quote', 'name', 'location', 'rating']);
 
         return response()->json([
             'success' => true,
